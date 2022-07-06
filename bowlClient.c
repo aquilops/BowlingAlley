@@ -25,7 +25,7 @@ int main(int argc , char *argv[]) { int choice=-1,choice_2=-1;
         }
         server.sin_addr.s_addr = inet_addr("192.168.56.102"); //Please enter the ip address >
         server.sin_family = AF_INET;
-        server.sin_port = htons( 22 );
+        server.sin_port = htons(8888);
         //Connect to remote server
         if (connect(socket_desc , (struct sockaddr *)&server , 
 sizeof(server)) < 0)
