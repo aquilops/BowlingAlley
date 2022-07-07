@@ -13,7 +13,16 @@ void error(const char *msg) {
     perror(msg);
     exit(0);
 }
-int main(int argc , char *argv[]) { int choice=-1,choice_2=-1;
+
+void mainMenu(); //Main menu
+void branchList(); //List of branch
+void booking(); //Make a booking
+int socket_desc, back, opt, b, d, player, numShoes;
+int duration[] = {30, 60};
+char place[100];
+
+int main(int argc , char *argv[])
+{
         int socket_desc;
         struct sockaddr_in server;
         char *message , server_reply[2000];
@@ -49,18 +58,42 @@ sizeof(server)) < 0)
         }
         puts("Reply received\n");
         puts(server_reply);
+	
+	mainMenu();
+        return 0;
+}
 
- int opt;
-        system("clear");
-        printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
-        printf("Choose One Of The Three Option\n");
-        printf("1. See Our Branch\n");
-        printf("2. Booking\n");
-        printf("3. Exit\n");
+void mainMenu()
+{
+	do{
+        	system("clear");
+        	printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
+        	printf("Choose One Of The Three Option\n");
+        	printf("1. See Our Branch\n");
+        	printf("2. Booking\n");
+        	printf("3. Exit\n");
 
-        scanf("%d", &opt);
-        write(socket_desc, &opt, sizeof(opt));
-        if(opt==1){
+        	scanf(" %d", &opt);
+        	write(socket_desc, &opt, sizeof(opt));
+		
+		switch(opt)
+		{
+			case 1:
+                                branchList();
+                                break;
+                        case 2:
+                                booking();
+                                break;
+                        case 3:
+                                printf("Thank you! Bye!\n");
+                                exit(0);
+                        default:
+                                printf("Oops, Wrong Choice Entered! Try Again!\n");
+                                break;
+                }
+        }
+	while(opt!=3);
+}
 
           printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
           printf("\t\t\tBranch         -------------> Location\n");
@@ -85,6 +118,6 @@ sizeof(server)) < 0)
     }
     if(choice==5) exit(0);
      printf(" You Choose : %d", choice);
-        return 0;
+     
 }
 
