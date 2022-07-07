@@ -50,16 +50,38 @@ sizeof(server)) < 0)
         puts("Reply received\n");
         puts(server_reply);
 
-//Choose The Place
-label_1:
-    choice=-1;
-    printf(" choose from following menu\n");
+ int opt;
+        system("clear");
+        printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
+        printf("Choose One Of The Three Option\n");
+        printf("1. See Our Branch\n");
+        printf("2. Booking\n");
+        printf("3. Exit\n");
+
+        scanf("%d", &opt);
+        write(socket_desc, &opt, sizeof(opt));
+        if(opt==1){
+
+          printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
+          printf("\t\t\tBranch         -------------> Location\n");
+          printf("\t\t\tSetia City Mall-------------> Setia Alam\n");
+          printf("\t\t\tOne Utama      -------------> Petaling Jaya\n");
+          printf("\t\t\tIoi City Mall  -------------> Putrajaya\n");
+          printf("\t\t\tWangsa Walk    -------------> Kuala Lumpur\n");
+
+            }
+
+        else if(opt==2){
+
+    printf(" choose Your Bowling Place\n");
     printf("\t 1. Setia City Mall \n \t 2. One Utama \n \t 3.Wangsa Walk \n\t 4. IoI City");
     scanf("%d",&choice);
+     printf("\tYour Bowling Place is : ");
+
     if(choice <1 || choice >4)
     {
         printf(" wrong choice entered, try again ...\n");
-        goto label_1;
+        return 1;
     }
     if(choice==5) exit(0);
      printf(" You Choose : %d", choice);
