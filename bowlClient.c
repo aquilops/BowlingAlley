@@ -63,7 +63,7 @@ sizeof(server)) < 0)
         return 0;
 }
 
-void mainMenu()
+void mainMenu() //function for the main menu
 {
 	do{
         	system("clear");
@@ -95,29 +95,62 @@ void mainMenu()
 	while(opt!=3);
 }
 
+void branchList() //function for list of branch
+{
           printf("\t\t\t******WELCOME TO WANGSA BOWL******\n");
           printf("\t\t\tBranch         -------------> Location\n");
           printf("\t\t\tSetia City Mall-------------> Setia Alam\n");
           printf("\t\t\tOne Utama      -------------> Petaling Jaya\n");
           printf("\t\t\tIoi City Mall  -------------> Putrajaya\n");
           printf("\t\t\tWangsa Walk    -------------> Kuala Lumpur\n");
-
-            }
-
-        else if(opt==2){
-
-    printf(" choose Your Bowling Place\n");
-    printf("\t 1. Setia City Mall \n \t 2. One Utama \n \t 3.Wangsa Walk \n\t 4. IoI City");
-    scanf("%d",&choice);
-     printf("\tYour Bowling Place is : ");
-
-    if(choice <1 || choice >4)
-    {
-        printf(" wrong choice entered, try again ...\n");
-        return 1;
-    }
-    if(choice==5) exit(0);
-     printf(" You Choose : %d", choice);
-     
+	  printf("\nPress 0 to go back to Main Menu\n");
+	  scanf(" %d", &back);
+	  mainMenu();	  
 }
 
+void booking() //function to make a booking
+{
+    printf("Choose Your Bowling Place\n");
+    printf("\t 1. Setia City Mall \n \t 2. One Utama \n \t 3. Wangsa Walk \n\t 4. IoI City Mall\n");
+    scanf(" %d", &b);
+    if (b > 0 || b < 5)
+    {
+        if(b==1){
+		strcpy(place, "Setia City Mall");
+	}e
+	else if(b==2){
+		strcpy(place, "One Utama");
+	}
+        else if(b==3){
+		strcpy(place, "Wangsa Walk");
+	}
+	else{
+		strcpy(place, "Ioi City Mall");
+	}
+	
+	printf("Choose the duration\n");
+	printf("\t 1. 30 minutes \n \t 2. 60 minutes\n");
+	scanf(" %d" , &d);
+	int period = duration[d-1]; //because index in array starts with 0
+	printf("Enter number of player\n");
+	scanf(" %d" , &player);
+	printf("How many shoes do you want? (Enter 0 if you don't want any)\n");
+	scanf(" %d" , &numShoes);
+	
+	printf("\t\t\t***Receipt***\t\t\t\n");
+	printf("Place: %s\n", place);
+	printf("Duration: %d minutes\n", period);
+	printf("Number of player: %d\n", player);
+	printf("Number of shoes: %d\n", numShoes);
+	printf("Total: RM \n");
+	printf("Press 0 to go to Main Menu\n");
+	scanf(" %d", &back);
+	mainMenu();
+    }
+    else if(b==0){
+    	mainMenu();
+    }
+    else{
+    	printf("Invalid Choice ! Try Again\n");
+    }
+}
