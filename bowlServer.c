@@ -53,11 +53,34 @@ int main(int argc , char *argv[]) {
                 //Reply to the client
                 message = "Hello Client , I have received your connection. But I have to go";
                 write(new_socket , message , strlen(message));
-        }
-        if (new_socket<0)
-        {
-                perror("accept failed");
-                return 1;
-        }
-        return 0;
+		
+        if((childpid = fork()) == 0){
+                        close(socket_desc);
+
+                        while(1){
+                                recv(new_socket, buffer, 1024, 0);
+                                if(strcmp(buffer, ":exit") == 0){
+                                        printf("Disconnected from %s:%d\n", inet_ntoa(client>
+                                        break;
+                                }
+                                else{
+                                        read(new_socket, &durations, sizeof(int));
+                                        printf("Duration: %s\n", buffer);
+                                        read(new_socket, &players, sizeof(int));
+                                        printf("Player: %s\n", buffer);
+                                        read(new_socket, &numShoes, sizeof(int));
+                                        printf("Shoes: %s\n", buffer);
+
+                                        send(new_socket, buffer, strlen(buffer), 0);
+                                        bzero(buffer, sizeof(buffer));
+                                }
+
+
+
+
 }
+}
+ return 0;
+}
+}
+
