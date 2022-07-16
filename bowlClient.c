@@ -20,6 +20,8 @@ void booking(); //Make a booking
 int socket_desc, back, opt, b, d, player, numShoes;
 int duration[] = {30, 60};
 char place[100];
+char buffer [1024];
+
 
 int main(int argc , char *argv[])
 {
@@ -32,6 +34,8 @@ int main(int argc , char *argv[])
         {
                 printf("Could not create socket");
         }
+	
+	memset(&server, '\0', sizeof(server));
         server.sin_addr.s_addr = inet_addr("192.168.56.102"); //Please enter the ip address >
         server.sin_family = AF_INET;
         server.sin_port = htons(8888);
@@ -74,7 +78,6 @@ void mainMenu() //function for the main menu
         	printf("3. Exit\n");
 
         	scanf(" %d", &opt);
-        	write(socket_desc, &opt, sizeof(opt));
 		
 		switch(opt)
 		{
@@ -131,11 +134,19 @@ void booking() //function to make a booking
 	printf("Choose the duration\n");
 	printf("\t 1. 30 minutes \n \t 2. 60 minutes\n");
 	scanf(" %d" , &d);
+  
 	int period = duration[d-1]; //because index in array starts with 0
+	write(socket_desc,&period,sizeof(period));
+	    
 	printf("Enter number of player\n");
 	scanf(" %d" , &player);
+	write(socket_desc,&player,sizeof(player));
+
+	    
 	printf("How many shoes do you want? (Enter 0 if you don't want any)\n");
 	scanf(" %d" , &numShoes);
+	write(socket_desc,&numShoes,sizeof(numShoes));
+
 	
 	printf("\t\t\t***Receipt***\t\t\t\n");
 	printf("Place: %s\n", place);
