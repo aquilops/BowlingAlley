@@ -20,6 +20,8 @@ int main(int argc , char *argv[]) {
 	int socket_desc , new_socket , c;
 	struct sockaddr_in server , client;
 	char *message;
+	int priceGame, priceShoes, totalPrice;
+
 
 	 //Create socket
         socket_desc = socket(AF_INET , SOCK_STREAM , 0);
@@ -27,7 +29,10 @@ int main(int argc , char *argv[]) {
         {
                 printf("Could not create socket");
         }
+	         printf("Socket Created.\n");
+
 	//Prepare the sockaddr_in structure
+	memset(&server, '\0', sizeof(server));
         server.sin_family = AF_INET;
         server.sin_addr.s_addr = INADDR_ANY;
         server.sin_port = htons( 8888 );
@@ -58,29 +63,37 @@ int main(int argc , char *argv[]) {
                         close(socket_desc);
 
                         while(1){
-                                recv(new_socket, buffer, 1024, 0);
+                                 recv(new_socket, &p, sizeof(int),0);
                                 if(strcmp(buffer, ":exit") == 0){
                                         printf("Disconnected from %s:%d\n", inet_ntoa(client>
                                         break;
                                 }
                                 else{
-                                        read(new_socket, &durations, sizeof(int));
-                                        printf("Duration: %s\n", buffer);
-                                        read(new_socket, &players, sizeof(int));
-                                        printf("Player: %s\n", buffer);
+                                         printf("Duration: %d\n", p);
+                                             if (p==1)
+                                               priceGame=15;
+                                            else
+                                              priceGame=30;
+
+                                        read(new_socket, &player, sizeof(int));
+                                        printf("Player: %d\n", player);
                                         read(new_socket, &numShoes, sizeof(int));
-                                        printf("Shoes: %s\n", buffer);
+                                        printf("Shoes: %d\n", numShoes);
+                                         priceShoes= numShoes*3.50;
 
-                                        send(new_socket, buffer, strlen(buffer), 0);
-                                        bzero(buffer, sizeof(buffer));
-                                }
+                                        totalPrice= (priceGame+priceShoes);
+                                        message = ("Your Total Price is: ");
+                                        write(new_socket,message,strlen(message));
 
-
-
-
+                                        printf("Disconnected from %s:%d\n", inet_ntoa(client>
+                                        break;
+										      
 }
+ }
 }
+close(new_socket);
+
  return 0;
 }
-}
+
 
