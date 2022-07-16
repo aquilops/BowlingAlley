@@ -15,10 +15,14 @@
 #include<sys/socket.h>
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>      //write
+#include<stdlib.h>
 
 int main(int argc , char *argv[]) {
-	int socket_desc , new_socket , c;
+	int socket_desc , new_socket , c, numShoes, player,period,p;
 	struct sockaddr_in server , client;
+	socklen_t addr_size;
+        char buffer [1024];
+        pid_t childpid;
 	char *message;
 	int priceGame, priceShoes, totalPrice;
 
