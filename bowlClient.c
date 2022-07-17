@@ -120,7 +120,7 @@ void booking() //function to make a booking
     {
         if(b==1){
 		strcpy(place, "Setia City Mall");
-	}e
+	}
 	else if(b==2){
 		strcpy(place, "One Utama");
 	}
